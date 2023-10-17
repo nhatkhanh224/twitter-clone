@@ -16,24 +16,24 @@ const LoginModal = () => {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmit = useCallback(async () => {
+  const onSubmit = async () => {
     try {
       setIsLoading(true);
 
-      // await signIn('credentials', {
-      //   email,
-      //   password,
-      // });
+      const user = await signIn('credentials', { email, password, callbackUrl: 'http://localhost:3001' })
 
-      // toast.success('Logged in');
-
-      loginModal.onClose();
+      if (user) {
+        toast.success('Logged in');
+        loginModal.onClose();
+      } else {
+        toast.success('Logged Failed');
+      }
     } catch (error) {
       toast.error('Something went wrong');
     } finally {
       setIsLoading(false);
     }
-  }, [email, password, loginModal]);
+  }
 
   const onToggle = useCallback(() => {
     loginModal.onClose();

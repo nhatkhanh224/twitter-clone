@@ -24,64 +24,56 @@ const RegisterModal = () => {
     if (isLoading) {
       return;
     }
-  
+
     registerModal.onClose();
     loginModal.onOpen();
   }, [loginModal, registerModal, isLoading]);
 
-  const onSubmit = useCallback(async () => {
+  const onSubmit = async () => {
     try {
       setIsLoading(true);
-      
-      // await axios.post('/api/register', {
-      //   email,
-      //   password,
-      //   username,
-      //   name,
-      // });
-
-      // setIsLoading(false)
-
-      // toast.success('Account created.');
-
-      // signIn('credentials', {
-      //   email,
-      //   password,
-      // });
-
+      await axios.post('http://localhost:3000/users/createAccount', {
+        email,
+        password,
+        username,
+        name,
+      });
+      setIsLoading(false)
+      toast.success('Account created.');
+      await signIn('credentials', { email, password, callbackUrl: 'http://localhost:3001' })
       registerModal.onClose();
     } catch (error) {
       toast.error('Something went wrong');
     } finally {
       setIsLoading(false);
     }
-  }, [email, password, registerModal, username, name]);
+  };
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
       <Input
         disabled={isLoading}
-        placeholder="Email" 
-        value={email} 
-        onChange={(e) => setEmail(e.target.value)} 
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
       />
-      <Input 
+      <Input
         disabled={isLoading}
-        placeholder="Name" 
-        value={name} 
-        onChange={(e) => setName(e.target.value)} 
+        placeholder="Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
       />
-      <Input 
+      <Input
         disabled={isLoading}
-        placeholder="Username" 
-        value={username} 
+        placeholder="Username"
+        value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
-      <Input 
+      <Input
         disabled={isLoading}
-        placeholder="Password" 
-        type="password" 
-        value={password} 
+        placeholder="Password"
+        type="password"
+        value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
     </div>
@@ -90,14 +82,14 @@ const RegisterModal = () => {
   const footerContent = (
     <div className="text-neutral-400 text-center mt-4">
       <p>Already have an account?
-        <span 
-          onClick={onToggle} 
+        <span
+          onClick={onToggle}
           className="
             text-white 
             cursor-pointer 
             hover:underline
           "
-          > Sign in</span>
+        > Sign in</span>
       </p>
     </div>
   )
