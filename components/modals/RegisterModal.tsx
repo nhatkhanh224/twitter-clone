@@ -8,6 +8,7 @@ import useRegisterModal from "@/hooks/useRegisterModal";
 
 import Input from "../Input";
 import Modal from "../Modal";
+import moment from "moment";
 
 const RegisterModal = () => {
   const loginModal = useLoginModal();
@@ -37,6 +38,8 @@ const RegisterModal = () => {
         password,
         username,
         name,
+        createdAt: moment().format(),
+        updateAt: moment().format(),
       });
       setIsLoading(false)
       toast.success('Account created.');
@@ -55,6 +58,7 @@ const RegisterModal = () => {
         disabled={isLoading}
         placeholder="Email"
         value={email}
+        type="email"
         onChange={(e) => setEmail(e.target.value)}
       />
       <Input

@@ -1,9 +1,10 @@
 import Header from "@/components/Header"
+import Form from "@/components/Form"
 export default function Home() {
   return (
     <>
       <Header label="Home" />
-      <div className="text-3xl text-sky-500">Hello world</div>
+      <Form placeholder="What's happening?" />
     </>
   )
 }
