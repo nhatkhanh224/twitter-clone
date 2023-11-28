@@ -6,17 +6,18 @@ import useCurrentUser from "./useCurrentUser";
 import useLoginModal from "./useLoginModal";
 import useUser from "./useUser";
 
-const useFollow = (username: string) => {
+const useFollow = (userId: string) => {
   const { data: currentUser, mutate: mutateCurrentUser } = useCurrentUser();
-  const { mutate: mutateFetchedUser } = useUser(username);
+  console.log("🚀 ~ file: useFollow.ts:11 ~ useFollow ~ currentUser:", currentUser)
+  const { mutate: mutateFetchedUser } = useUser(userId);
 
   const loginModal = useLoginModal();
 
   const isFollowing = useMemo(() => {
     const list = currentUser?.followingIds || [];
 
-    return list.includes(username);
-  }, [currentUser, username]);
+    return list.includes(userId);
+  }, [currentUser, userId]);
 
   const toggleFollow = useCallback(async () => {
     if (!currentUser) {
@@ -27,9 +28,9 @@ const useFollow = (username: string) => {
       let request;
 
       if (isFollowing) {
-        request = () => axios.delete('/api/follow', { data: { username } });
+        request = () => axios.delete('/api/follow', { data: { userId } });
       } else {
-        request = () => axios.post('/api/follow', { username });
+        request = () => axios.post('/api/follow', { userId });
       }
 
       await request();
@@ -40,7 +41,7 @@ const useFollow = (username: string) => {
     } catch (error) {
       toast.error('Something went wrong');
     }
-  }, [currentUser, isFollowing, username, mutateCurrentUser, mutateFetchedUser, loginModal]);
+  }, [currentUser, isFollowing, userId, mutateCurrentUser, mutateFetchedUser, loginModal]);
 
   return {
     isFollowing,
