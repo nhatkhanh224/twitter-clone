@@ -28,9 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!user) {
       throw new Error('Invalid ID');
     }
-    console.log("🚀 ~ file: follow.ts:23 ~ handler ~ user:", user)
     let updatedFollowingIds = [...(user.followingIds || [])];
-    console.log("🚀 ~ file: follow.ts:33 ~ handler ~ updatedFollowingIds:", updatedFollowingIds)
 
     if (req.method === 'POST') {
       updatedFollowingIds.push(userId);

@@ -8,7 +8,6 @@ import useUser from "./useUser";
 
 const useFollow = (userId: string) => {
   const { data: currentUser, mutate: mutateCurrentUser } = useCurrentUser();
-  console.log("🚀 ~ file: useFollow.ts:11 ~ useFollow ~ currentUser:", currentUser)
   const { mutate: mutateFetchedUser } = useUser(userId);
 
   const loginModal = useLoginModal();
