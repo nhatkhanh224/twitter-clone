@@ -32,7 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     //   },
     // });
 
-    const post = await axios.post('http://localhost:3000/posts/findPostByID', {
+    const post = await axios.post(`${process.env.apiURL}/posts/findPostByID`, {
       postId,
     });
 

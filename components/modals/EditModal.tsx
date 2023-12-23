@@ -34,7 +34,7 @@ const EditModal = () => {
   const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
-      await axios.put('http://localhost:3000/users/updateProfile', {
+      await axios.put(`${process.env.apiURL}/users/updateProfile`, {
         id: currentUser._id,
         name, username, bio, profileImage, coverImage
       });

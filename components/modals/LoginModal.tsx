@@ -20,7 +20,7 @@ const LoginModal = () => {
     try {
       setIsLoading(true);
 
-      const user = await signIn('credentials', { email, password, callbackUrl: 'http://localhost:3001' })
+      const user = await signIn('credentials', { email, password, callbackUrl: `${process.env.webURL}` })
 
       if (user) {
         toast.success('Logged in');

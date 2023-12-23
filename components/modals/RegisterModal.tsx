@@ -33,7 +33,7 @@ const RegisterModal = () => {
   const onSubmit = async () => {
     try {
       setIsLoading(true);
-      await axios.post('http://localhost:3000/users/createAccount', {
+      await axios.post(`${process.env.apiURL}/users/createAccount`, {
         email,
         password,
         username,
@@ -43,7 +43,7 @@ const RegisterModal = () => {
       });
       setIsLoading(false)
       toast.success('Account created.');
-      await signIn('credentials', { email, password, callbackUrl: 'http://localhost:3001' })
+      await signIn('credentials', { email, password, callbackUrl: `${process.env.webURL}` })
       registerModal.onClose();
     } catch (error) {
       toast.error('Something went wrong');

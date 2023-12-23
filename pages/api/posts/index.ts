@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method === 'POST') {
       const { currentUser } = await serverAuth(req, res);
       const { body } = req.body;
-      const post = await axios.post('http://localhost:3000/posts/createPost', {
+      const post = await axios.post(`${process.env.apiURL}/posts/createPost`, {
         body,
         userId: currentUser._id,
         createdAt: moment().format(),
@@ -36,7 +36,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       let posts;
 
       if (userId && typeof userId === 'string') {
-        posts = await axios.post('http://localhost:3000/posts/findPostByUserID', {
+        posts = await axios.post(`${process.env.apiURL}/posts/findPostByUserID`, {
           userId,
         }).then(function (response) {
           return response.data
@@ -45,7 +45,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             console.log(error);
           });
       } else {
-        posts = await axios.post('http://localhost:3000/posts/findPostByUserID', {
+        posts = await axios.post(`${process.env.apiURL}/posts/findPostByUserID`, {
           userId: null,
         }).then(function (response) {
           return response.data

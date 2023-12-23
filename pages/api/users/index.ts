@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const users = await axios.get('http://localhost:3000/users')
+    const users = await axios.get(`${process.env.apiURL}/users`)
         .then(function (response) {
           return response.data
         })

@@ -17,7 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       throw new Error('Missing fields');
     }
 
-    const updatedUser = await axios.put('http://localhost:3000/users/updateProfile', {
+    const updatedUser = await axios.put(`${process.env.apiURL}/users/updateProfile`, {
       id: currentUser._id,
       name, username, bio, profileImage, coverImage
     });

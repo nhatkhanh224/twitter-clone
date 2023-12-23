@@ -1,5 +1,4 @@
 import fetcher from "@/libs/fetcher";
-import UserService from "@/services/UserService";
 import axios from "axios";
 import * as bcrypt from 'bcrypt';
 import NextAuth, { AuthOptions } from "next-auth"
@@ -18,7 +17,7 @@ export const authOptions: AuthOptions = {
         if (!credentials?.email || !credentials?.password) {
           throw new Error('Invalid credentials');
         }
-        const user = await axios.post('http://localhost:3000/users',{
+        const user = await axios.post(`${process.env.apiURL}/users`,{
           "email": credentials?.email
         })
         .then(function (response) {
@@ -48,9 +47,9 @@ export const authOptions: AuthOptions = {
     strategy: 'jwt',
   },
   jwt: {
-    secret: process.env.NEXTAUTH_JWT_SECRET,
+    secret: `${process.env.NEXTAUTH_JWT_SECRET}`,
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: `${process.env.NEXTAUTH_SECRET}`,
 };
 
 export default NextAuth(authOptions);

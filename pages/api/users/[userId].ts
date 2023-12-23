@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       throw new Error('Invalid ID');
     }
 
-    const existingUser = await axios.get(`http://localhost:3000/users/${userId}`)
+    const existingUser = await axios.get(`${process.env.apiURL}/users/${userId}`)
     .then(function (response) {
       return response.data
     })
@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       console.log(error);
     });
 
-    const followersCount = await axios.get(`http://localhost:3000/users/follow/count/${userId}`)
+    const followersCount = await axios.get(`${process.env.apiURL}/users/follow/count/${userId}`)
     .then(function (response) {
       return response.data
     })

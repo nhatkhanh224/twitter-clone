@@ -18,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       throw new Error('Invalid ID');
     }
 
-    const user = await axios.get(`http://localhost:3000/users/follow/${userId}`)
+    const user = await axios.get(`${process.env.apiURL}/users/follow/${userId}`)
         .then(function (response) {
           return response.data
         })
@@ -35,14 +35,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       // NOTIFICATION PART START
       try {
-        await axios.post('http://localhost:3000/notifications', {
+        await axios.post(`${process.env.apiURL}/notifications`, {
           body: 'Someone followed you!',
           userId,
           createdAt: moment().format(),
           updateAt: moment().format(),
         });
 
-        await axios.put('http://localhost:3000/users/updateProfile', {
+        await axios.put(`${process.env.apiURL}/users/updateProfile`, {
           id: userId,
           hasNotification: true
         });
@@ -57,7 +57,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       updatedFollowingIds = updatedFollowingIds.filter((followingId) => followingId !== userId);
     }
     
-    const updatedUser = await axios.put('http://localhost:3000/users/updateProfile', {
+    const updatedUser = await axios.put(`${process.env.apiURL}/users/updateProfile`, {
       id: currentUser._id,
       followingIds: updatedFollowingIds
     });

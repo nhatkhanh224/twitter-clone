@@ -1,8 +1,7 @@
-import api from "./API"
+import request from "@/utils/api";
 
 export default {
-  getUserByEmail(data: any) {
-    let data1 = JSON.stringify(data);
-    return api.post('/users',data1)
-  },
+  // updateProfile({data}) {
+    
+  // },
 }
