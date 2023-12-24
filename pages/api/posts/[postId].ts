@@ -34,8 +34,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const post = await axios.post(`${process.env.apiURL}/posts/findPostByID`, {
       postId,
-    });
-
+    }).then(function (response) {
+      return response.data
+    })
+      .catch(function (error) {
+        console.log(error);
+      });
     return res.status(200).json(post);
   } catch (error) {
     console.log(error);
